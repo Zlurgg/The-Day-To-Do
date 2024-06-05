@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp") version libs.versions.ksp.get()
     alias(libs.plugins.compose.compiler)
-}
+    alias(libs.plugins.jetbrainsKotlinKsp)
+    alias(libs.plugins.hiltPlugin)}
 
 android {
     namespace = "uk.co.zlurgg.thedaytodo"
@@ -66,9 +66,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.hiltAndroid)
-    ksp(libs.hiltCompiler)
+    //Hilt
+    implementation (libs.hilt.android)
+    ksp(libs.dagger.compiler)
+    ksp(libs.hilt.compiler)
 
+    //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.roomCompiler)
+    implementation(libs.androidx.room.ktx)
+
 }
