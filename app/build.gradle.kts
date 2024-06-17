@@ -76,4 +76,7 @@ dependencies {
     ksp(libs.roomCompiler)
     implementation(libs.androidx.room.ktx)
 
+    implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.compose.material3.adaptive.navigation)
+
 }
