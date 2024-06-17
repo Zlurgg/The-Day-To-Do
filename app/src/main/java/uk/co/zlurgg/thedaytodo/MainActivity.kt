@@ -8,8 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
-import uk.co.zlurgg.thedaytodo.presentation.todo_list.TodoListScreen
+import uk.co.zlurgg.thedaytodo.presentation.add_edit_todo.AddEditTodoScreen
+import uk.co.zlurgg.thedaytodo.presentation.todos.TodosScreen
 import uk.co.zlurgg.thedaytodo.ui.theme.TheDayToDoTheme
 
 @AndroidEntryPoint
@@ -19,8 +25,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TheDayToDoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TodoListScreen(Modifier.padding(innerPadding))
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = "todos_screen"
+                ) {
+                    composable("todos_screen") { TodosScreen(navController) }
+                    composable("add_edit_todo_screen" + "?todoId={todoId}",
+                        arguments = listOf(
+                            navArgument(
+                                name = "todoId"
+                            ) {
+                                type = NavType.IntType
+                                defaultValue = -1
+                            }
+                        )
+                    ) {
+                        AddEditTodoScreen(navController)
+                    }
                 }
             }
         }

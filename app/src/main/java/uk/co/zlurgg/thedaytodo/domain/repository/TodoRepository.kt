@@ -1,6 +1,7 @@
-package uk.co.zlurgg.thedaytodo.data
+package uk.co.zlurgg.thedaytodo.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import uk.co.zlurgg.thedaytodo.domain.model.Todo
 
 interface TodoRepository {
 
